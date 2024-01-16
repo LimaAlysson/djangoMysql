@@ -1,0 +1,28 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Contato</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    <br>
+    <div class="container">
+        <h2>Contato</h2>
+        {% bootstrap_messages %}
+        <form action="{% url 'contato' %}" method="post" class="form" autocomplete="off">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            {% endbuttons %}
+        </form>
+
+    </div>
+{% bootstrap_javascript %}
+</body>
+</html>
+

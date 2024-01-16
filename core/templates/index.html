@@ -1,0 +1,80 @@
+{% load bootstrap5 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página inicial</title>
+    {% bootstrap_css %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <a href="admin/" style="float: right"><button class="btn btn-outline-secondary">Conta</button></a><br>
+
+    <div class="container text-center">
+        <h1 class="text-center">Página Inicial</h1>
+        <a href="contato/" ><button class=" btn btn-primary">Contato</button></a>
+        <a href="produto/" ><button class=" btn btn-primary">Produto</button></a>
+    </div>
+    <br>
+    <div class="container">
+        <h3 align="center">Produtos cadastrados</h3>
+        <table class="table table-dark">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Quantidade</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for produto in produtos %}
+                <tr>
+                    <td scope="row">{{ produto.id }}</td>
+                    <td scope="row"> <a href="javascript:OpenModalProduct('{{ produto.nome }}', '{{ produto.imagem.url }}')">{{ produto.nome }}</a></td>
+                    <td scope="row">{{ produto.preco }}</td>
+                    <td scope="row">{{ produto.quantidade }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+<button type="button" class="btn btn-primary" id="btmodal" style="display: none;" data-bs-toggle="modal" data-bs-target="#modal{{produto.id}}">
+  Launch demo modal
+</button>
+
+
+<div class="modal fade" id="modal{{produto.id}}" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="modal_header">
+            </div>
+            <div class="modal-body" id="modal_body">
+            </div>
+            <div class="modal-footer">
+                 <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="btfecharcancelar">fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% bootstrap_javascript %}
+
+<script>
+        function OpenModalProduct(produto_nome, produto_imagem) {
+            //alert(produto_imagem)
+            document.getElementById('modal_header').innerHTML = produto_nome;
+            //document.getElementById('modal_body').innerHTML = "<img src=\"{% static '/images/teste.png' %}\">";
+            document.getElementById('btmodal').click();
+
+        }
+</script>
+
+
+</body>
+</html>
